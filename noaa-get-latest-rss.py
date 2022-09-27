@@ -6,10 +6,12 @@ from uuid import uuid4
 import bs4
 from bs4 import BeautifulSoup
 
-year = sys.argv[1]
-month = sys.argv[2]
-day = sys.argv[3]
-timestamp = sys.argv[4]
+extract_root = sys.argv[1]
+transform_root = sys.argv[2]
+year = sys.argv[3]
+month = sys.argv[4]
+day = sys.argv[5]
+timestamp = sys.argv[6]
 
 span = uuid4()
 
@@ -17,8 +19,8 @@ def within_nhc_namespace(tag: bs4.Tag):
     return tag.prefix == "nhc" and tag.parent.prefix is None
 
 if __name__ == "__main__":
-    input_path = f"""./noaa/rss/{year}/{month}/{day}/{timestamp}"""
-    output_path = f"""./noaa/rss-nhc/{year}/{month}/{day}/{timestamp}"""
+    input_path = f"""./noaa/{extract_root}/{year}/{month}/{day}/{timestamp}"""
+    output_path = f"""./noaa/{transform_root}/{year}/{month}/{day}/{timestamp}"""
 
     print(json.dumps({
        'event': f"""noaa/parse_rss/open/{span}""",
